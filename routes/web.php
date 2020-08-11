@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', function () {
+        return redirect()->route("post.index");
+    });
+    Route::resource('user', 'UserController');
+    Route::resource('category', 'CategoryController');
+});
+
+Route::group(['prefix' => 'getdata'], function () {
+    Route::get('category', 'DataTableController@getCategory')->name('getdata.category');
+});
