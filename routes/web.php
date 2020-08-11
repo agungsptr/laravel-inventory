@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,19 +13,26 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+// disable route '/register'
+Route::match(["GET", "POST"], "/register", function () {
+    return abort(404);
 });
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function () {
-        return redirect()->route("post.index");
+        return redirect()->route("category.index");
     });
-    Route::resource('user', 'UserController');
+    Route::resource('inventory', 'InventoryController');
+    Route::resource('fund', 'FundController');
     Route::resource('category', 'CategoryController');
 });
 
 Route::group(['prefix' => 'getdata'], function () {
+    Route::get('inventory', 'DataTableController@getInventory')->name('getdata.inventory');
     Route::get('category', 'DataTableController@getCategory')->name('getdata.category');
+    Route::get('fund', 'DataTableController@getFund')->name('getdata.fund');
 });
+
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -52,7 +52,7 @@
                         <i class="far fa-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        {{-- <form action="{{ route('logout') }}" method="POST"> --}}
+                        <form action="{{ route('logout') }}" method="POST">
                             @csrf
                             <button class="dropdown-item">
                                 <i class="fas fa-sign-out-alt mr-2" style="color: grey"></i> Keluar
@@ -77,7 +77,9 @@
                     <i class="fas fa-user fa-2x ml-3" style="color: white"></i>
                     <div class="info">
                         <a href="#" class="d-block font-weight-bold">
-                            {{-- {{strtoupper(Auth::user()->name)}} --}}
+                            @auth
+                                {{strtoupper(Auth::user()->name)}}
+                            @endauth
                         </a>
                     </div>
                 </div>
@@ -89,7 +91,33 @@
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                         <li class="nav-header">INVENTORY</li>
-                        <li class="nav-item has-treeview menu-open">
+                        <li class="nav-item has-treeview menu-open mb-4">
+                            <a href="#" class="nav-link @yield('menu-barang')">
+                                <i class="nav-icon far fa-folder"></i>
+                                <p>
+                                    Inventaris Barang
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('inventory.index') }}" class="nav-link @yield('menu-barang-daftar')">
+                                        <i class="fas fa-list nav-icon"></i>
+                                        <p>Daftar Barang</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('inventory.create') }}" class="nav-link @yield('menu-barang-tambah')">
+                                        <i class="fas fa-plus nav-icon"></i>
+                                        <p>Tambah Barang</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item has-treeview menu-open mb-4">
                             <a href="#" class="nav-link @yield('menu-kategori')">
                                 <i class="nav-icon far fa-folder"></i>
                                 <p>
@@ -115,34 +143,31 @@
                             </ul>
                         </li>
 
-                        @if (Auth::user())
-                        <li class="nav-header">USER</li>
-                        <li class="nav-item has-treeview menu-open">
-                            <a href="#" class="nav-link @yield('menu-user')">
-                                <i class="nav-icon fas fa-users-cog"></i>
+                        <li class="nav-item has-treeview menu-open mb-4">
+                            <a href="#" class="nav-link @yield('menu-dana')">
+                                <i class="nav-icon far fa-folder"></i>
                                 <p>
-                                    Manajemen User
-                                    <i class="right fas fa-angle-left"></i>
+                                    Sumber Dana
+                                    <i class="right fa fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link @yield('menu-user-list')">
+                                    <a href="{{ route('fund.index') }}" class="nav-link @yield('menu-dana-daftar')">
                                         <i class="fas fa-list nav-icon"></i>
-                                        <p>List User</p>
+                                        <p>Daftar Dana</p>
                                     </a>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link @yield('menu-user-tambah')">
+                                    <a href="{{ route('fund.create') }}" class="nav-link @yield('menu-dana-tambah')">
                                         <i class="fas fa-plus nav-icon"></i>
-                                        <p>Tambah User</p>
+                                        <p>Tambah Dana</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                        @endif
                     </ul>
 
                 </nav>

@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
 @section('title')
-Kategori Post
+Sumber Dana
 @endsection
 
 @section('title-card')
-Daftar Kategori
+Daftar Dana
 @endsection
 
-@section('menu-kategori')
+@section('menu-dana')
 active
 @endsection
 
-@section('menu-kategori-daftar')
+@section('menu-dana-daftar')
 active
 @endsection
 
@@ -41,7 +41,7 @@ active
         <table class="table table-striped table-bordered table-hover" style="width:100%" id="table_id">
             <thead>
                 <tr>
-                    <th>Kategori</th>
+                    <th>Dana</th>
                     <th style="width: 165px">Action</th>
                 </tr>
             </thead>
@@ -56,7 +56,7 @@ active
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Kategori</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Delete Dana</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -81,7 +81,7 @@ active
         var table = $('#table_id').DataTable({
             processing:true,
             serverside:true,
-            ajax:"{{ route('getdata.category') }}",
+            ajax:"{{ route('getdata.fund') }}",
             columns:[
                 {data:'name'},
                 {data:'aksi', sortable:false},
@@ -95,7 +95,7 @@ active
 
             var tr = $(this).closest('tr');
             var row = table.row(tr).data();
-            document.getElementById('modal-body').innerHTML = 'Apakah anda yakin menghapus kategori <strong>' + row.name + '</strong> ?';
+            document.getElementById('modal-body').innerHTML = 'Apakah anda yakin menghapus dana <strong>' + row.name + '</strong> ?';
         });
     });
 </script>

@@ -1,18 +1,18 @@
 @extends('layouts.admin')
 
 @section('title')
-Kategori Post
+Inventaris Barang
 @endsection
 
 @section('title-card')
-Daftar Kategori
+Daftar Barang
 @endsection
 
-@section('menu-kategori')
+@section('menu-barang')
 active
 @endsection
 
-@section('menu-kategori-daftar')
+@section('menu-barang-daftar')
 active
 @endsection
 
@@ -38,11 +38,22 @@ active
 
 <div class="row">
     <div class="col-12">
-        <table class="table table-striped table-bordered table-hover" style="width:100%" id="table_id">
+        <table class="table-responsive table table-striped table-bordered table-hover" style="width:100%" id="table_id">
             <thead>
                 <tr>
-                    <th>Kategori</th>
-                    <th style="width: 165px">Action</th>
+                    <th class="align-middle" >Barang</th>
+                    <th class="align-middle" >Merek</th>
+                    <th class="align-middle" >Jumlah</th>
+                    <th class="align-middle" >Nomor Mesin</th>
+                    <th class="align-middle" >Satuan</th>
+                    <th class="align-middle" >Tanggal Beli</th>
+                    <th class="align-middle" >Lokasi</th>
+                    <th class="align-middle" >Kondisi</th>
+                    <th class="align-middle" >Status</th>
+                    <th class="align-middle" >Harga</th>
+                    <th class="align-middle" >Kategori</th>
+                    <th class="align-middle" >Sumber Dana</th>
+                    <th class="align-middle"  style="width: 165px">Action</th>
                 </tr>
             </thead>
         </table>
@@ -81,9 +92,20 @@ active
         var table = $('#table_id').DataTable({
             processing:true,
             serverside:true,
-            ajax:"{{ route('getdata.category') }}",
+            ajax:"{{ route('getdata.inventory') }}",
             columns:[
                 {data:'name'},
+                {data:'brand'},
+                {data:'amount'},
+                {data:'machine_number'},
+                {data:'unit'},
+                {data:'buy_date'},
+                {data:'location'},
+                {data:'condition'},
+                {data:'status'},
+                {data:'price'},
+                {data:'category'},
+                {data:'fund'},
                 {data:'aksi', sortable:false},
             ],
         });
