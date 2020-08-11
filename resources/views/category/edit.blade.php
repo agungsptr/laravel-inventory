@@ -34,7 +34,7 @@ active
             <div class="form-group">
                 <label for="">Kategori</label>
                 <input name="category" type="text""
-                    class=" form-control {{$errors->first('category') ? 'is-invalid':''}}" value="{{$category->category}}" required minlength="3" maxlength="190">
+                    class=" form-control {{$errors->first('category') ? 'is-invalid':''}}" value="{{$category->name}}" required minlength="3" maxlength="190">
                 @error('category')
                 <div class="invalid-feedback">
                     {{$message}}

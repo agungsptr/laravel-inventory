@@ -51,10 +51,10 @@ class CategoryController extends Controller
         );
 
         $category = new Category;
-        $category->category = $request->get('category');
+        $category->name = $request->get('category');
         $category->save();
 
-        return redirect()->route('category.create')->with('status', "Kategori \"$category->category\" berhasil ditambahkan");
+        return redirect()->route('category.create')->with('status', "Kategori \"$category->name\" berhasil ditambahkan");
     }
 
     /**
@@ -100,10 +100,10 @@ class CategoryController extends Controller
         );
 
         $category = Category::findOrFail($id);
-        $category->category = $request->get('category');
+        $category->name = $request->get('category');
         $category->save();
 
-        return redirect()->route('category.edit', ['category' => $category->id])->with('status', "Kategori \"$category->category\" berhasil diedit");
+        return redirect()->route('category.edit', ['category' => $category->id])->with('status', "Kategori \"$category->name\" berhasil diedit");
     }
 
     /**
@@ -115,7 +115,7 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        $val = $category->category;
+        $val = $category->name;
         $category->delete();
 
         return redirect()->route('category.index')->with('status', "Kategori $val berhasil dihapus");
