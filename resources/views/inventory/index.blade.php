@@ -36,29 +36,55 @@ active
 </div>
 @endif
 
+<div class="form-group mb-4">
+    <label for="">Filter</label>
+    <div class="row">
+        <div class="col-sm-3">
+            Sumber Dana
+            <select data-column="11" class="form-control" name="fund_id" id="filter-satuan">
+                <option value="">Pilih sumber dana</option>
+                @foreach ($funds as $fund)
+                <option value="{{$fund->name}}">{{$fund->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-sm-3">
+            Kategori Barang
+            <select data-column="10" class="form-control" name="category_id" id="filter-category">
+                <option value="">Pilih kategori barang</option>
+                @foreach ($categories as $ctg)
+                <option value="{{$ctg->name}}">{{$ctg->name}}</option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-12">
-        <table class="table-responsive table table-striped table-bordered table-hover" style="width:100%" id="table_id">
+        <table class="table table-responsive table-striped table-bordered table-hover" style="width:100%" id="table_id">
             <thead>
                 <tr>
-                    <th class="align-middle" >Barang</th>
-                    <th class="align-middle" >Merek</th>
-                    <th class="align-middle" >Jumlah</th>
-                    <th class="align-middle" >Nomor Mesin</th>
-                    <th class="align-middle" >Satuan</th>
-                    <th class="align-middle" >Tanggal Beli</th>
-                    <th class="align-middle" >Lokasi</th>
-                    <th class="align-middle" >Kondisi</th>
-                    <th class="align-middle" >Status</th>
-                    <th class="align-middle" >Harga</th>
-                    <th class="align-middle" >Kategori</th>
-                    <th class="align-middle" >Sumber Dana</th>
-                    <th class="align-middle"  style="width: 165px">Action</th>
+                    <th class="align-middle">Barang</th>
+                    <th class="align-middle">Merek</th>
+                    <th class="align-middle">Jumlah</th>
+                    <th class="align-middle">Nomor Mesin</th>
+                    <th class="align-middle">Satuan</th>
+                    <th class="align-middle">Tanggal Beli</th>
+                    <th class="align-middle">Lokasi</th>
+                    <th class="align-middle">Kondisi</th>
+                    <th class="align-middle">Status</th>
+                    <th class="align-middle">Harga</th>
+                    <th class="align-middle">Kategori</th>
+                    <th class="align-middle">Sumber Dana</th>
+                    <th class="align-middle" style="width: 165px">Action</th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
+
+<div class="info"></div>
 @endsection
 
 @section('modal')
@@ -93,13 +119,35 @@ active
             processing:true,
             serverside:true,
             ajax:"{{ route('getdata.inventory') }}",
+            dom: "<'row'<'col-sm-12 col-md-6'<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'l>>><'col-sm-12 col-md-6'f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5, 6, 7, 8, 9, 10, 11 ]
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5, 6, 7, 8, 9, 10, 11 ]
+                    },
+                    pageSize: 'A4'
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 5, 6, 7, 8, 9, 10, 11 ]
+                    }
+                },
+            ],
             columns:[
                 {data:'name'},
                 {data:'brand'},
                 {data:'amount'},
                 {data:'machine_number'},
                 {data:'unit'},
-                {data:'buy_date'},
+                {data:'date'},
                 {data:'location'},
                 {data:'condition'},
                 {data:'status'},
@@ -118,6 +166,18 @@ active
             var tr = $(this).closest('tr');
             var row = table.row(tr).data();
             document.getElementById('modal-body').innerHTML = 'Apakah anda yakin menghapus kategori <strong>' + row.name + '</strong> ?';
+        });
+
+        $('#filter-satuan').change(function () {
+            table.column( $(this).data('column'))
+            .search( $(this).val() )
+            .draw();
+        });
+
+        $('#filter-category').change(function () {
+            table.column( $(this).data('column'))
+            .search( $(this).val() )
+            .draw();
         });
     });
 </script>

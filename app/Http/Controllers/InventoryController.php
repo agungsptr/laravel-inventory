@@ -21,7 +21,12 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        return view('inventory.index');
+        $funds = Fund::all();
+        $categories = Category::all();
+        return view('inventory.index', [
+            'funds' => $funds,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -90,21 +95,9 @@ class InventoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate(
-            [
-                'inventory' => "required|max:191",
-            ],
-            [
-                'inventory.required' => 'Inventory harus diisi',
-                'inventory.max' => 'Inventory tidak boleh melebihi 191 karakter',
-            ]
-        );
-
-        $inventory = inventory::findOrFail($id);
-        $inventory->name = $request->get('inventory');
-        $inventory->save();
-
-        return redirect()->route('inventory.edit', ['inventory' => $inventory->id])->with('status', "Inventory \"$inventory->name\" berhasil diedit");
+        $inventory = Inventory::findOrFail($id);
+        $inventory->update($request->all());
+        return redirect()->route('inventory.edit', ['inventory' => $id])->with('status', "Inventory \"$inventory->name\" berhasil diedit");
     }
 
     /**

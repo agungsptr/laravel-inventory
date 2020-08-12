@@ -19,9 +19,13 @@ Route::match(["GET", "POST"], "/register", function () {
     return abort(404);
 });
 
+Route::get('/', function () {
+    return redirect()->route('inventory.index');
+});
+
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function () {
-        return redirect()->route("category.index");
+        return redirect()->route("inventory.index");
     });
     Route::resource('inventory', 'InventoryController');
     Route::resource('fund', 'FundController');

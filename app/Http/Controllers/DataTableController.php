@@ -39,6 +39,9 @@ class DataTableController extends Controller
             ->addColumn('fund', function($inventory) {
                 return $inventory->Fund();
             })
+            ->addColumn('date', function($inventory) {
+                return substr($inventory->buy_date, 0, 16);
+            })
             ->rawColumns(['aksi'])
             ->toJson();
     }
