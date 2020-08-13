@@ -61,8 +61,8 @@ active
 </div>
 
 <div class="row">
-    <div class="col-12 table-responsive">
-        <table class="table table-striped table-bordered table-hover" style="width:100%" id="table_id">
+    <div class="col-12">
+        <table class="table table-responsive table-striped table-bordered table-hover" style="width:100%" id="table_id">
             <thead>
                 <tr>
                     <th class="align-middle">Barang</th>
