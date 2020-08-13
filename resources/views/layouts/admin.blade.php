@@ -243,8 +243,6 @@
     <script src="{{asset('vendor/AdminLTE/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('vendor/AdminLTE/dist/js/adminlte.js')}}"></script>
-    
-    <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
 
     <script type="text/javascript" charset="utf8" src="{{ asset('vendor/DataTables/datatables.js') }}"></script>
 
