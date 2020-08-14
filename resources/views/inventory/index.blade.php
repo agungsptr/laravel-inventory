@@ -125,24 +125,25 @@ active
                 {
                     extend: 'excelHtml5',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 5, 6, 7, 8, 9, 10, 11 ]
+                        columns: [ 1, 2, 5, 6, 7, 8, 9, 10, 11, 12 ]
                     }
                 },
                 {
                     extend: 'pdfHtml5',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 5, 6, 7, 8, 9, 10, 11 ]
+                        columns: [ 1, 2, 5, 6, 7, 8, 9, 10, 11, 12 ]
                     },
                     pageSize: 'A4'
                 },
                 {
                     extend: 'print',
                     exportOptions: {
-                        columns: [ 0, 1, 2, 5, 6, 7, 8, 9, 10, 11 ]
+                        columns: [ 1, 2, 5, 6, 7, 8, 9, 10, 11, 12 ]
                     }
                 },
             ],
             columns:[
+                {data: null},
                 {data:'name'},
                 {data:'brand'},
                 {data:'amount'},
@@ -162,8 +163,9 @@ active
         table.on( 'order.dt search.dt', function () {
             table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                 cell.innerHTML = i+1;
-            } );
-        } ).draw();
+                table.cell(cell).invalidate('dom'); 
+            });
+        }).draw();
 
         $('#table_id tbody').on('click', 'button', function () {
             var url = $(this).data('remote');
