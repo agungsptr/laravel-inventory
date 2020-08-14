@@ -65,6 +65,7 @@ active
         <table class="table table-responsive table-striped table-bordered table-hover" style="width:100%" id="table_id">
             <thead>
                 <tr>
+                    <th class="align-middle">No</th>
                     <th class="align-middle">Barang</th>
                     <th class="align-middle">Merek</th>
                     <th class="align-middle">Jumlah</th>
@@ -157,6 +158,12 @@ active
                 {data:'aksi', sortable:false},
             ],
         });
+
+        table.on( 'order.dt search.dt', function () {
+            table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
 
         $('#table_id tbody').on('click', 'button', function () {
             var url = $(this).data('remote');
